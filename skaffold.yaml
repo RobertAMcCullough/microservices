@@ -1,0 +1,24 @@
+# skaffold config - run outside of k8s
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/* # the config files to apply on startup
+build:
+  local:
+    push: false # dont push to dockerhub
+  # googleCloudBuild: # replace local with this
+  #   projectId: ticketing-dev-411519
+  artifacts: # all the things that will be created
+    - image: robertamccullough/gittix-auth # - was for local
+    # - image: us.gcr.io/ticketing-dev-411519/auth # googlecloud format - auth is directory name
+      context: auth # directory code is contained in
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          # this files will just be immediately copied to running pod
+          # any other changes will result in rebuild of image
+          - src: 'src/**/*.ts'
+            dest: .

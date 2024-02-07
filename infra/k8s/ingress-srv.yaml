@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: 'true' # need for wildcards in path names
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: gittixlocal.com
+      http:
+        paths:
+          - path: /api/users/?(.*) # the route we are expecting requests on in api
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: auth-srv # service name
+                port:
+                  number: 3000
+          # - path: /?(.*) # has to go at end as catch-all
+          #   pathType: ImplementationSpecific
+          #   backend:
+          #     service:
+          #       name: client-srv # service name
+          #       port:
+          #         number: 3000
