@@ -5,25 +5,20 @@ import { UserPayload } from '../middlewares/current-user';
 
 const router = express.Router();
 
-router.post(
-  '/api/users/signout',
-  (req: Request, res: Response) => {
-    req.session = null;
+router.post('/api/users/signout', (req: Request, res: Response) => {
+  req.session = null;
 
-    res.send({});
-  }
-);
+  res.send({});
+});
 
 export { router as signoutUserRouter };
 
-
-// this should only be required once per project, but skaffold is not able to find it 
+// this should only be required once per project, but skaffold is not able to find it
 declare global {
-    namespace Express {
-      interface Request {
-        currentUser?: UserPayload;
-        session: any;
-      }
+  namespace Express {
+    interface Request {
+      currentUser?: UserPayload;
+      session: any;
     }
   }
-  
+}

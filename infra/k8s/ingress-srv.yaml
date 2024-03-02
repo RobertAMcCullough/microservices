@@ -8,6 +8,7 @@ spec:
   ingressClassName: nginx
   rules:
     - host: gittixlocal.com
+    # - host: localhost
       http:
         paths:
           - path: /api/users/?(.*) # the route we are expecting requests on in api
@@ -17,10 +18,12 @@ spec:
                 name: auth-srv # service name
                 port:
                   number: 3000
-          # - path: /?(.*) # has to go at end as catch-all
-          #   pathType: ImplementationSpecific
-          #   backend:
-          #     service:
-          #       name: client-srv # service name
-          #       port:
-          #         number: 3000
+          - path: /?(.*) # has to go at end as catch-all
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: client-srv # service name
+                port:
+                  number: 3000
+
+# kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/cloud/deploy.yaml

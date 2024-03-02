@@ -11,8 +11,8 @@ build:
   # googleCloudBuild: # replace local with this
   #   projectId: ticketing-dev-411519
   artifacts: # all the things that will be created
-    - image: robertamccullough/gittix-auth # - was for local
-    # - image: us.gcr.io/ticketing-dev-411519/auth # googlecloud format - auth is directory name
+    - image: robertamccullough/gittix-auth # - for local
+      # - image: us.gcr.io/ticketing-dev-411519/auth # googlecloud format - auth is directory name
       context: auth # directory code is contained in
       docker:
         dockerfile: Dockerfile
@@ -21,4 +21,14 @@ build:
           # this files will just be immediately copied to running pod
           # any other changes will result in rebuild of image
           - src: 'src/**/*.ts'
+            dest: .
+    - image: robertamccullough/gittix-client # - for local
+      context: client # directory code is contained in
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          # this files will just be immediately copied to running pod
+          # any other changes will result in rebuild of image
+          - src: '**/*.js'
             dest: .

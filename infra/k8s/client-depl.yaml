@@ -1,0 +1,41 @@
+# run with kubectl apply -f client-deply.yaml
+apiVersion: apps/v1 #note apps/
+kind: Deployment
+metadata:
+  name: client-depl # just for logging etc
+spec:
+  replicas: 1 # number of pods to create
+  selector: # which pods to manage
+    matchLabels:
+      app: client # app is not special, just a key-value pair
+  template: # pods to create
+    metadata:
+      labels:
+        app: client # will now match with selector above
+    spec: # pod specs
+      containers:
+        - name: client
+          # specifiying version below so doesn't reach to docker hub for latest
+          image: robertamccullough/gittix-client
+          # image: us.gcr.io/ticketing-dev-411519/client
+          env:
+            - name: JWT_SIGNING_KEY # name of env variable inside pod
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY # can assign more than one key to a secret
+        # can add more containers to array
+--- # 3 dashes to start defining a new object
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+spec:
+  selector:
+    app: client
+  type: ClusterIP # optional because this is default service
+  ports:
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
