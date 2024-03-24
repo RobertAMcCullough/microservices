@@ -1,11 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
+import { RequestValidationError, validateRequest } from '@bobmccullough/gittix-common';
 
 import { Password } from '../services/password';
 import { User } from '../models/user';
-import { RequestValidationError } from '../errors/request-validation-error';
-import { validateRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
 

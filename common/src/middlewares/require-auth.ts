@@ -14,13 +14,3 @@ export const requireAuth = (
   }
   next();
 };
-
-// this should only be required once per project, but skaffold is not able to find it
-// declare global {
-//   namespace Express {
-//     interface Request {
-//       currentUser?: UserPayload;
-//       // session?: any;
-//     }
-//   }
-// }

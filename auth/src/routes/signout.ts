@@ -1,7 +1,5 @@
 import express, { Request, Response } from 'express';
-import { requireAuth } from '../middlewares/require-auth';
-
-import { UserPayload } from '../middlewares/current-user';
+import { requireAuth, UserPayload } from '@bobmccullough/gittix-common';
 
 const router = express.Router();
 
@@ -18,7 +16,7 @@ declare global {
   namespace Express {
     interface Request {
       currentUser?: UserPayload;
-      session: any;
+      session?: any;
     }
   }
 }

@@ -10,11 +10,13 @@ interface UserAttrs {
 }
 
 // tell TS to expect build() method on User model
+// this is collection of documents
 interface UserModel extends mongoose.Model<UserDoc> {
   build(attrs: UserAttrs): UserDoc;
 }
 
 // define User instance for TS
+// this is one document
 interface UserDoc extends mongoose.Document {
   email: string;
   password: string;

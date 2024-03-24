@@ -15,10 +15,12 @@ import { app } from './app';
 const start = async () => {
   if (!process.env.JWT_SIGNING_KEY)
     throw new Error('JWT_SIGNING_KEY must be defined');
+  if (!process.env.MONGO_URI)
+    throw new Error('MONGO_URI must be defined');
 
     // await createMemoryDb();
   try {
-    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth'); // '/auth' is name of db that will be created
+    await mongoose.connect(process.env.MONGO_URI); // mongodb://auth-mongo-srv:27017/auth - '/auth' is name of db that will be created
     console.log('Connected to Mongo DB');
   } catch (e) {
     console.error('Error connecting to Mongo DB:', e);

@@ -1,0 +1,52 @@
+apiVersion: apps/v1 #note apps/
+kind: Deployment
+metadata:
+  name: nats-depl # just for logging etc
+spec:
+  replicas: 1 # number of pods to create
+  selector: # which pods to manage
+    matchLabels:
+      app: nats # app is not special, just a key-value pair
+  template: # pods to create
+    metadata:
+      labels:
+        app: nats # will now match with selector above
+    spec: # pod specs
+      containers:
+        - name: nats
+          # specifiying version below so doesn't reach to docker hub for latest
+          image: nats-streaming:0.17.0
+          args: [
+            '-p',
+            '4222',
+            '-m',
+            '8222',
+            '-hbi',
+            '5s',
+            '-hbt',
+            '5s',
+            '-hbf',
+            '2',
+            '-SD',
+            '-cid',
+            'ticketing'
+          ]
+--- # 3 dashes to start defining a new object
+apiVersion: v1
+kind: Service
+metadata:
+  name: nats-srv
+spec:
+  selector:
+    app: nats
+  # type: NodePort # optional because this is default service
+  type: ClusterIP # optional because this is default service
+  ports:
+    - name: client
+      protocol: TCP
+      port: 4222
+      targetPort: 4222
+    - name: monitoring
+      protocol: TCP
+      port: 8222
+      targetPort: 8222

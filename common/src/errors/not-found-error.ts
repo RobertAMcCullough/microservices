@@ -7,7 +7,7 @@ export class NotFoundError extends CustomError {
     Object.setPrototypeOf(this, NotFoundError.prototype);
   }
 
-  statusCode = 400;
+  statusCode = 404;
   serializeErrors() {
     return [{ message: 'Invalid Route!' }];
   }

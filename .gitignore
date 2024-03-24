@@ -1,2 +1,7 @@
 client/node_modules
 client/.next
+
+common/build
+common/node_modules
+
+ticketing/node_modules

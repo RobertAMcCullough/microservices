@@ -18,6 +18,13 @@ spec:
                 name: auth-srv # service name
                 port:
                   number: 3000
+          - path: /api/ticketing/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: ticketing-srv
+                port:
+                  number: 3000
           - path: /?(.*) # has to go at end as catch-all
             pathType: ImplementationSpecific
             backend:

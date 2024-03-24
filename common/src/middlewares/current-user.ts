@@ -25,15 +25,13 @@ export const currentUser = (
   next();
 };
 
-
-
-// // extending an already defined type
-// declare global {
-//     namespace Express {
-//       interface Request {
-//         currentUser?: UserPayload;
-//       //   session?: any;
-//       }
-//     }
-//   }
+// extending an already defined type
+declare global {
+    namespace Express {
+      interface Request {
+        currentUser?: UserPayload;
+        session?: any;
+      }
+    }
+  }
   

@@ -1,9 +1,8 @@
 import express, { Request, Response } from 'express';
 import Jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
-import { BadRequestError } from '../errors/bad-request-error';
+import { BadRequestError, UserPayload } from '@bobmccullough/gittix-common';
 import { User } from '../models/user';
-import { UserPayload } from '../middlewares/current-user';
 
 // import { generateSentence, generateSentenceNoProps, getArmLock } from 'random-bjj'
 

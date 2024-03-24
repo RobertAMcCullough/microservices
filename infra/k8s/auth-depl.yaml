@@ -19,6 +19,8 @@ spec:
           image: robertamccullough/gittix-auth
           # image: us.gcr.io/ticketing-dev-411519/auth
           env:
+            - name: MONGO_URI
+              value: mongodb://auth-mongo-srv:27017/auth
             - name: JWT_SIGNING_KEY # name of env variable inside pod
               valueFrom:
                 secretKeyRef:

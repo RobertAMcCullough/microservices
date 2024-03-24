@@ -5,14 +5,12 @@ import cp from 'cookie-parser';
 import cookieSession from 'cookie-session'
 import 'express-async-errors';
 import { json } from 'body-parser';
+import { NotFoundError, errorHandler, currentUser } from '@bobmccullough/gittix-common';
 
-import { NotFoundError } from './errors/not-found-error';
 import { currentUserRouter } from './routes/current-user';
 import { signinUserRouter } from './routes/signin';
 import { signupUserRouter } from './routes/signup';
 import { signoutUserRouter } from './routes/signout';
-import { errorHandler } from './middlewares/error-handler';
-import { currentUser } from './middlewares/current-user';
 
 export const app = express();
 

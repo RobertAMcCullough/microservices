@@ -32,3 +32,11 @@ build:
           # any other changes will result in rebuild of image
           - src: '**/*.js'
             dest: .
+    - image: robertamccullough/gittix-ticketing
+      context: ticketing
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .

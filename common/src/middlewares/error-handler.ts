@@ -16,7 +16,8 @@ const errorHandler = (
     return res.status(err.statusCode).send(err.serializeErrors());
   }
 
-  res.status(400).send({ errors: [{ message: `Unknown Errror: ${err?.message}` }] });
+  console.error(err); // so developer can see this unknown error after installing package
+  res.status(400).send([{ message: `Unknown Errror: ${err?.message}` }]);
 };
 
 export { errorHandler };
